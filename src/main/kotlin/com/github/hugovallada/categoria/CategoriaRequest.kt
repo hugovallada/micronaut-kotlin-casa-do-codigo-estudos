@@ -3,7 +3,7 @@ package com.github.hugovallada.categoria
 import javax.validation.constraints.NotBlank
 
 data class CategoriaRequest(
-        @NotBlank
+        @field:NotBlank
         val nome: String
 ){
     fun toModel(): Categoria{

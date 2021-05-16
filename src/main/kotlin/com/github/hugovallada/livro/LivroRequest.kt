@@ -9,23 +9,23 @@ import javax.validation.constraints.*
 import kotlin.math.max
 
 class LivroRequest(
-        @NotBlank
+        @field:NotBlank
         val titulo: String,
-        @NotBlank
+        @field:NotBlank
         val sumario: String,
-        @NotBlank @Size(max = 500)
+        @field:NotBlank @field:Size(max = 500)
         val resumo: String,
-        @NotNull @Positive @Min(20)
+        @field:NotNull @field:Positive @field:Min(20)
         val preco: BigDecimal,
-        @NotNull @Positive @Min(100)
+        @field:NotNull @field:Positive @field:Min(100)
         val numPag : Number,
-        @NotBlank
+        @field:NotBlank
         val isbn: String,
-        @Future
+        @field:Future
         val dataPublicacao: LocalDateTime,
-        @NotNull @Positive
+        @field:NotNull @field:Positive
         val categoriaId: Long,
-        @NotNull @Positive
+        @field:NotNull @field:Positive
         val autorId: Long,
 ) {
 
