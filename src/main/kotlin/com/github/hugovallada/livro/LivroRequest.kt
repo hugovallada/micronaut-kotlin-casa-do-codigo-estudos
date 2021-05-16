@@ -3,6 +3,7 @@ package com.github.hugovallada.livro
 import com.github.hugovallada.autor.Autor
 import com.github.hugovallada.categoria.Categoria
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.persistence.ManyToOne
 import javax.validation.constraints.*
@@ -22,7 +23,7 @@ class LivroRequest(
         @field:NotBlank
         val isbn: String,
         @field:Future
-        val dataPublicacao: LocalDateTime,
+        val dataPublicacao: LocalDate,
         @field:NotNull @field:Positive
         val categoriaId: Long,
         @field:NotNull @field:Positive

@@ -1,6 +1,5 @@
 package com.github.hugovallada.autor
 
-import com.github.hugovallada.config.error.ApiErrorResponse
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*

@@ -4,9 +4,8 @@ import com.github.hugovallada.autor.AutorRepository
 import com.github.hugovallada.categoria.CategoriaRepository
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.*
+import kotlin.streams.toList
 
 @Controller("/livros")
 class LivroController(val livroRepository: LivroRepository, val categoriaRepository: CategoriaRepository, val autorRepository: AutorRepository) {
@@ -29,6 +28,27 @@ class LivroController(val livroRepository: LivroRepository, val categoriaReposit
         return HttpResponse.status(HttpStatus.CREATED)
 
 
+    }
+
+    @Get
+    fun listarLivros(): HttpResponse<List<LivroResponse>> {
+        val livros = livroRepository.findAll()
+        val livroResponse = livros.stream().map { livro -> LivroResponse(livro.id!!, livro.titulo) }.toList()
+        return HttpResponse.ok(livroResponse)
+    }
+
+    @Get("/{id}")
+    fun buscarPorId(@PathVariable id: Long): HttpResponse<DetalheLivroResponse> {
+        val livroOpt = livroRepository.findById(id);
+
+        if(livroOpt.isEmpty){
+            return HttpResponse.notFound()
+        }
+
+        val livro = livroOpt.get()
+
+        val response = DetalheLivroResponse(livro.id!!, livro.titulo, livro.isbn, livro.resumo, livro.numPag)
+        return HttpResponse.ok(response)
     }
 
 }
