@@ -5,13 +5,16 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
+import io.micronaut.validation.Validated
+import javax.validation.Valid
 
 
 @Controller("/categorias")
+@Validated
 class CategoriaController(val categoriaRepository: CategoriaRepository) {
 
     @Post
-    fun cadastrarCategoria(@Body categoriaRequest: CategoriaRequest): HttpResponse<Void> {
+    fun cadastrarCategoria(@Body @Valid categoriaRequest: CategoriaRequest): HttpResponse<Void> {
 
         if(categoriaRepository.existsByNome(categoriaRequest.nome)){
             return HttpResponse.unprocessableEntity()
