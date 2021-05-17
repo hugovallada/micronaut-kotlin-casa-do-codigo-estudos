@@ -8,9 +8,12 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Body
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
+import io.micronaut.validation.Validated
 import java.util.*
+import javax.validation.Valid
 
 @Controller("/clientes")
+@Validated
 class ClienteController(private val estadoRepository: EstadoRepository,
                         private val clienteRepository: ClienteRepository,
                         private val paisRepository: PaisRepository
@@ -19,7 +22,7 @@ class ClienteController(private val estadoRepository: EstadoRepository,
 {
 
     @Post
-    fun cadastrarCliente(@Body clienteRequest: ClienteRequest):HttpResponse<Void> {
+    fun cadastrarCliente(@Body @Valid clienteRequest: ClienteRequest):HttpResponse<Void> {
         if(clienteRequest.estadoId != null && !estadoRepository.existsById(clienteRequest.estadoId)){
             return HttpResponse.unprocessableEntity()
         }

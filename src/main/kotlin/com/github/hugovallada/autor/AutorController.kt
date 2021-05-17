@@ -8,11 +8,11 @@ import javax.validation.Valid
 
 
 @Controller("/autores")
-
+@Validated
 class AutorController(val autorRepository: AutorRepository) {
 
     @Post
-    fun cadastrarAutor(@Body autorRequest: AutorRequest): HttpResponse<Autor> {
+    fun cadastrarAutor(@Body @Valid autorRequest: AutorRequest): HttpResponse<Autor> {
         if(autorRepository.existsByEmail(autorRequest.email)){
             return HttpResponse.status<Autor?>(HttpStatus.UNPROCESSABLE_ENTITY)
         }

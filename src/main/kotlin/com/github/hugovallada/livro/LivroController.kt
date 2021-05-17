@@ -5,14 +5,17 @@ import com.github.hugovallada.categoria.CategoriaRepository
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
+import io.micronaut.validation.Validated
+import javax.validation.Valid
 import kotlin.streams.toList
 
 @Controller("/livros")
+@Validated
 class LivroController(val livroRepository: LivroRepository, val categoriaRepository: CategoriaRepository, val autorRepository: AutorRepository) {
 
 
     @Post
-    fun criarNovoLivro(@Body livroRequest: LivroRequest): HttpResponse<Void> {
+    fun criarNovoLivro(@Body @Valid livroRequest: LivroRequest): HttpResponse<Void> {
 
         if(livroRepository.existsByTituloOrIsbn(livroRequest.titulo, livroRequest.isbn)){
             return HttpResponse.unprocessableEntity()

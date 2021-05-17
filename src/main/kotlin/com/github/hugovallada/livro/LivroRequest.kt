@@ -2,6 +2,7 @@ package com.github.hugovallada.livro
 
 import com.github.hugovallada.autor.Autor
 import com.github.hugovallada.categoria.Categoria
+import io.micronaut.core.annotation.Introspected
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -9,6 +10,7 @@ import javax.persistence.ManyToOne
 import javax.validation.constraints.*
 import kotlin.math.max
 
+@Introspected
 class LivroRequest(
         @field:NotBlank
         val titulo: String,
